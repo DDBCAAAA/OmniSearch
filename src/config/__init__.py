@@ -1,0 +1,2 @@
+"""Configuration utilities for OmniSearch."""
+

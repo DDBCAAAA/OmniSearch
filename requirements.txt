@@ -1,0 +1,6 @@
+google-cloud-aiplatform
+vertexai
+tenacity
+ffmpeg-python
+psycopg2-binary
+
