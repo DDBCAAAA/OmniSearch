@@ -161,7 +161,13 @@ class VertexMultimodalEmbedder:
         logger.info("Requesting text embedding from Vertex AI. length=%d", len(text))
 
         try:
-            response = self._model.get_embeddings(text=text)
+            # SDK compatibility:
+            # - Newer versions use `contextual_text`.
+            # - Some older versions accepted `text`.
+            try:
+                response = self._model.get_embeddings(contextual_text=text)
+            except TypeError:
+                response = self._model.get_embeddings(text=text)
             text_embedding = getattr(response, "text_embedding", None)
             if text_embedding is None:
                 raise VertexEmbeddingError("Vertex AI response is missing text_embedding field.")
